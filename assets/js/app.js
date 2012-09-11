@@ -4,6 +4,9 @@ var maxTime = 60;
 var start = undefined;
 var candidate = undefined;
 var final_round_started = false;
+var show_tips_time = 2500;
+var cache = true;
+
 window.fbAsyncInit = function() {
 
 	var init = function() {
@@ -48,7 +51,6 @@ window.fbAsyncInit = function() {
 
 var get_the_friends = function() {
 	
-	var cache = false;
 	var fql = $.jStorage.get('fql');
 	if(cache && fql) {
 		console.log('get fql from cache');
@@ -224,7 +226,7 @@ var start_game = function() {
 		}
 	}, 10000);
 	// start tip counter
-	tipTimer = window.setTimeout(function() { show_tip(candidate, 1); }, 5000);
+	tipTimer = window.setTimeout(function() { show_tip(candidate, 1); }, show_tips_time);
 	// start countdown
 	init_counter('01:00');
 };
@@ -257,10 +259,10 @@ var show_tip = function(candidate, number) {
 		var width = 760 - 200 - 120;
 		$('#page-' + page.page_id).css( {
 			left: offset.left + 200 + Math.random() * width,
-			top: offset.top + Math.random() * 100 });
+			top: offset.top + Math.random() * 50 });
 		
 		if(candidate.pages.length > 1) {
-			tipTimer = window.setTimeout(function() { show_tip(candidate, number + 1); }, 5000);
+			tipTimer = window.setTimeout(function() { show_tip(candidate, number + 1); }, show_tips_time);
 		}
 	}
 }
